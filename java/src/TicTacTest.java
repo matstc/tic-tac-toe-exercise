@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -8,7 +10,8 @@ public class TicTacTest {
 	@Test
 	public void shouldDisplayBoard() throws Exception {
 		String output = new Board().toString();
-		assertEquals("  |   |  \n" + "---------\n" + "  |   |  \n" + "---------\n" + "  |   |  ", output);
+		assertEquals("  |   |  \n" + "---------\n" + "  |   |  \n"
+				+ "---------\n" + "  |   |  ", output);
 	}
 
 	@Test
@@ -17,7 +20,8 @@ public class TicTacTest {
 
 		board.playX(0);
 
-		assertEquals("X |   |  \n" + "---------\n" + "  |   |  \n" + "---------\n" + "  |   |  ", board.toString());
+		assertEquals("X |   |  \n" + "---------\n" + "  |   |  \n"
+				+ "---------\n" + "  |   |  ", board.toString());
 	}
 
 	@Test
@@ -26,34 +30,52 @@ public class TicTacTest {
 
 		board.playO(2);
 
-		assertEquals("  |   | O\n" + "---------\n" + "  |   |  \n" + "---------\n" + "  |   |  ", board.toString());
+		assertEquals("  |   | O\n" + "---------\n" + "  |   |  \n"
+				+ "---------\n" + "  |   |  ", board.toString());
 	}
 
 	@Test
-	public void shouldNOtBeAbleToPlayInOccupiedSquare() throws Exception {
+	public void shouldNotBeAbleToPlayInOccupiedSquare() throws Exception {
 		Board board = new Board();
 
-		for (int i = 0; i < 9; i++) {
-			board.playX(i);
-			try {
-				board.playO(i);
-				Assert.fail();
-			} catch (Exception e) {
-
-			}
+		try {
+			board.playX(0);
+			board.playO(0);
+			Assert.fail();
+		} catch (Exception e) {
 		}
+		
+		assertEquals("X |   |  \n" + "---------\n" + "  |   |  \n"
+				+ "---------\n" + "  |   |  ", board.toString());
+	}
 
-		board = new Board();
+	@Test
+	public void shouldDetectWinnerInTheFirstRow() {
+		Board board = new Board();
+		board.playX(0);
+		board.playX(1);
+		assertFalse(board.hasWinner());
+		board.playX(2);
+		assertTrue(board.hasWinner());
+	}
 
-		for (int i = 0; i < 9; i++) {
-			board.playO(i);
-			try {
-				board.playX(i);
-				Assert.fail();
-			} catch (Exception e) {
-
-			}
-		}
-
+	@Test
+	public void shouldDetectWinnerInTheSecondColumn() {
+		Board board = new Board();
+		board.playX(0);
+		board.playX(3);
+		assertFalse(board.hasWinner());
+		board.playX(6);
+		assertTrue(board.hasWinner());
+	}
+	
+	@Test
+	public void shouldDetectWinnerInDiagonal() {
+		Board board = new Board();
+		board.playX(0);
+		board.playX(4);
+		assertFalse(board.hasWinner());
+		board.playX(8);
+		assertTrue(board.hasWinner());
 	}
 }

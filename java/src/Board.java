@@ -17,7 +17,14 @@ public class Board {
 	}
 
 	private void play(String token, Integer index) {
+		if (occupied(index))
+			throw new IllegalArgumentException();
+		
 		squares[index] = token;
+	}
+
+	private boolean occupied(Integer index) {
+		return !squares[index].equals(" ");
 	}
 
 }

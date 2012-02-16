@@ -9,6 +9,15 @@ public class Board {
 	}
 
 	public void playX(Integer index) {
-		squares[index] = "X";
+		play("X", index);
 	}
+
+	public void playO(Integer index) {
+		play("O", index);
+	}
+
+	private void play(String token, Integer index) {
+		squares[index] = token;
+	}
+
 }

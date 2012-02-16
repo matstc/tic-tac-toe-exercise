@@ -27,5 +27,18 @@ public class TicTacTest {
 				     "---------\n" +
 				     "  |   |  ", board.toString());
 	}
+	
+	@Test
+	public void shouldPlayANaughtInTheTopRight() throws Exception {
+		Board board = new Board();
+		
+		board.playO(2);
+		
+		assertEquals("  |   | O\n" +
+				     "---------\n" +
+				     "  |   |  \n" +
+				     "---------\n" +
+				     "  |   |  ", board.toString());
+	}
 
 }

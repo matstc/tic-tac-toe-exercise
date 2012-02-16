@@ -15,4 +15,17 @@ public class TicTacTest {
 				     "  |   |  ", output);
 	}
 
+	@Test
+	public void shouldPlayACrossInTheTopLeft() throws Exception {
+		Board board = new Board();
+		
+		board.playX(0);
+		
+		assertEquals("X |   |  \n" +
+				     "---------\n" +
+				     "  |   |  \n" +
+				     "---------\n" +
+				     "  |   |  ", board.toString());
+	}
+
 }

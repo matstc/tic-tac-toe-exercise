@@ -7,4 +7,8 @@ public class Board {
 	public String toString() {
 		return String.format("%s | %s | %s\n---------\n%s | %s | %s\n---------\n%s | %s | %s", (Object[])squares);
 	}
+
+	public void playX(Integer index) {
+		squares[index] = "X";
+	}
 }

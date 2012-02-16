@@ -20,6 +20,7 @@ public class FourByFourGrid implements Grid {
 	}
 	
 	public String displayString() {
+		
 		return "%s | %s | %s | %s\n" +
 	             "-------------\n" +
 	           "%s | %s | %s | %s\n" +

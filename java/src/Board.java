@@ -4,7 +4,7 @@ import java.util.List;
 public class Board {
 
 	private List<String> squares;
-	private Grid grid;
+	private Grid strategy;
 
 	public static Board createFourByFourBoard() {
 		return new Board(Arrays.asList(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "), new FourByFourGrid());
@@ -16,11 +16,11 @@ public class Board {
 
 	private Board(List<String> squares, Grid grid) {
 		this.squares = squares;
-		this.grid = grid;
+		this.strategy = grid;
 	}
 
 	public boolean hasWinner(){
-		return grid.hasWinner(this);
+		return strategy.hasWinner(this);
 	}
 
 	public void playX(Integer index) {
@@ -56,6 +56,6 @@ public class Board {
 	
 	@Override
 	public String toString() {
-		return String.format(grid.displayString(), squares.toArray());
+		return String.format(strategy.displayString(), squares.toArray());
 	}
 }

@@ -89,6 +89,15 @@ public class TicTacTest {
 		assertTrue(board.hasWinner());
 	}
 	
+	@Test
+	public void shouldNotDetectAWin(){
+		Board board = Board.createBoard();
+		board.playX(0);
+		board.playX(4);
+		board.playO(8);
+		assertFalse(board.hasWinner());
+	}
+	
 	@Test(expected=RuntimeException.class)
 	public void shouldNotAllowMovesOutsideTheGrid(){
 		Board board = Board.createBoard();
@@ -103,6 +112,18 @@ public class TicTacTest {
 	
 	@Test
 	public void shouldAllowPlayOn4x4(){
+		Board board = Board.createFourByFourBoard();
+		assertEquals("  |   |   |  \n" 
+				   + "-------------\n"
+				   + "  |   |   |  \n"
+				   + "-------------\n"
+				   + "  |   |   |  \n"
+				   + "-------------\n"
+				   + "  |   |   |  ", board.toString());
+	}
+		
+	@Test
+	public void shouldDetectAWinInTheLastRowOnAFourByFourBoard(){
 		Board board = Board.createFourByFourBoard();
 		board.playX(11);		
 		board.playX(10);

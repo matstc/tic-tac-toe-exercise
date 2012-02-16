@@ -1,20 +1,27 @@
-public abstract class Board {
+import java.util.Arrays;
+import java.util.List;
 
-	protected String[] squares;
+public class Board {
+
+	private List<String> squares;
+	private Grid grid;
 
 	public static Board createFourByFourBoard() {
-		return new FourByFourBoard();
+		return new Board(Arrays.asList(" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "), new FourByFourGrid());
 	}
 	
 	public static Board createBoard(){
-		return new ThreeByThreeBoard();
+		return new Board(Arrays.asList(" "," "," "," "," "," "," "," "," "), new ThreeByThreeGrid());
 	}
 
-	protected Board(String[] squares) {
+	private Board(List<String> squares, Grid grid) {
 		this.squares = squares;
+		this.grid = grid;
 	}
 
-	public abstract boolean hasWinner();
+	public boolean hasWinner(){
+		return grid.hasWinner(this);
+	}
 
 	public void playX(Integer index) {
 		play("X", index);
@@ -24,35 +31,31 @@ public abstract class Board {
 		play("O", index);
 	}
 	
-	protected boolean hasWinner(Integer... predicates) {
-		if (!occupied(predicates[0])) return false;
-		
-		String token = squares[predicates[0]];
-		for (Integer predicate : predicates){
-			if (token != squares[predicate])
+	public boolean allOccupiedBySamePlayer(Integer... squareIndexes) {
+		if (!occupied(squareIndexes[0])) return false;
+
+		String symbol = squares.get(squareIndexes[0]);
+		for (Integer predicate : squareIndexes){
+			if (!symbol.equals(squares.get(predicate)))
 				return false;
 		}
 		
 		return true;
 	}
 	
-	private void play(String token, Integer index) {
+	private void play(String symbol, Integer index) {
 		if (occupied(index))
 			throw new RuntimeException("You cannot play in a square that is already occupied");
 		
-		squares[index] = token;
+		squares.set(index, symbol);
 	}
 
 	private boolean occupied(Integer index) {
-		return !squares[index].equals(" ");
+		return !squares.get(index).equals(" ");
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("%s | %s | %s\n" +
-				             "---------\n" +
-				             "%s | %s | %s\n" +
-				             "---------\n" +
-				             "%s | %s | %s", (Object[])squares);
+		return String.format(grid.displayString(), squares.toArray());
 	}
 }

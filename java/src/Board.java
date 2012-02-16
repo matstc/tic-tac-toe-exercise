@@ -1,10 +1,17 @@
-public class Board {
+public abstract class Board {
 
-	private String[] squares = new String[] {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+	protected String[] squares;
 
-	@Override
-	public String toString() {
-		return String.format("%s | %s | %s\n---------\n%s | %s | %s\n---------\n%s | %s | %s", (Object[])squares);
+	public static Board createFourByFourBoard() {
+		return new FourByFourBoard();
+	}
+	
+	public static Board createBoard(){
+		return new ThreeByThreeBoard();
+	}
+
+	protected Board(String[] squares) {
+		this.squares = squares;
 	}
 
 	public void playX(Integer index) {
@@ -15,22 +22,20 @@ public class Board {
 		play("O", index);
 	}
 
-	public boolean hasWinner() {
-
-		if (hasWinner(0,1,2)) return true;
-		if (hasWinner(3,4,5)) return true;
-		if (hasWinner(6,7,8)) return true;
+	public abstract boolean hasWinner();
+	
+	protected boolean hasWinner(Integer... predicates) {
+		if (!occupied(predicates[0])) return false;
 		
-		if (hasWinner(0,3,6)) return true;
-		if (hasWinner(1,4,7)) return true;
-		if (hasWinner(2,5,8)) return true;
+		String token = squares[predicates[0]];
+		for (Integer predicate : predicates){
+			if (token != squares[predicate])
+				return false;
+		}
 		
-		if (hasWinner(0,4,8)) return true;
-		if (hasWinner(2,4,6)) return true;
-
-		return false;
+		return true;
 	}
-
+	
 	private void play(String token, Integer index) {
 		if (occupied(index))
 			throw new RuntimeException("You cannot play in a square that is already occupied");
@@ -41,8 +46,10 @@ public class Board {
 	private boolean occupied(Integer index) {
 		return !squares[index].equals(" ");
 	}
-
-	private boolean hasWinner(Integer a, Integer b, Integer c) {
-		return (occupied(a)) && (squares[a].equals(squares[b])) && (squares[b].equals(squares[c]));
+	
+	@Override
+	public String toString() {
+		return String.format("%s | %s | %s\n---------\n%s | %s | %s\n---------\n%s | %s | %s", (Object[])squares);
 	}
+
 }

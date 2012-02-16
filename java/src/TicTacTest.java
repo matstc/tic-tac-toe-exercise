@@ -9,14 +9,14 @@ public class TicTacTest {
 
 	@Test
 	public void shouldDisplayBoard() throws Exception {
-		String output = new Board().toString();
+		String output = Board.createBoard().toString();
 		assertEquals("  |   |  \n" + "---------\n" + "  |   |  \n"
 				+ "---------\n" + "  |   |  ", output);
 	}
 
 	@Test
 	public void shouldPlayACrossInTheTopLeft() throws Exception {
-		Board board = new Board();
+		Board board = Board.createBoard();
 
 		board.playX(0);
 
@@ -26,7 +26,7 @@ public class TicTacTest {
 
 	@Test
 	public void shouldPlayANaughtInTheTopRight() throws Exception {
-		Board board = new Board();
+		Board board = Board.createBoard();
 
 		board.playO(2);
 
@@ -36,7 +36,7 @@ public class TicTacTest {
 
 	@Test
 	public void shouldNotBeAbleToPlayInOccupiedSquare() throws Exception {
-		Board board = new Board();
+		Board board = Board.createBoard();
 
 		try {
 			board.playX(0);
@@ -51,7 +51,7 @@ public class TicTacTest {
 
 	@Test
 	public void shouldDetectWinnerInTheFirstRow() {
-		Board board = new Board();
+		Board board = Board.createBoard();
 		board.playX(0);
 		board.playX(1);
 		assertFalse(board.hasWinner());
@@ -61,7 +61,7 @@ public class TicTacTest {
 
 	@Test
 	public void shouldDetectWinnerInTheSecondColumn() {
-		Board board = new Board();
+		Board board = Board.createBoard();
 		board.playX(0);
 		board.playX(3);
 		assertFalse(board.hasWinner());
@@ -71,7 +71,7 @@ public class TicTacTest {
 	
 	@Test
 	public void shouldDetectWinnerInDiagonal() {
-		Board board = new Board();
+		Board board = Board.createBoard();
 		board.playX(0);
 		board.playX(4);
 		assertFalse(board.hasWinner());
@@ -81,13 +81,24 @@ public class TicTacTest {
 	
 	@Test(expected=RuntimeException.class)
 	public void shouldNotAllowMovesOutsideTheGrid(){
-		Board board = new Board();
+		Board board = Board.createBoard();
 		board.playX(9);		
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void shouldNotAllowNegativeMoves(){
-		Board board = new Board();
+		Board board = Board.createBoard();
 		board.playX(-1);		
+	}
+	
+	@Test
+	public void shouldAllowPlayOn4x4(){
+		Board board = Board.createFourByFourBoard();
+		board.playX(11);		
+		board.playX(10);
+		board.playX(9);
+		assertFalse(board.hasWinner());
+		board.playX(8);
+		assertTrue(board.hasWinner());
 	}
 }

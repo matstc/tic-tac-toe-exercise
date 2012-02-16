@@ -10,28 +10,35 @@ public class TicTacTest {
 	@Test
 	public void shouldDisplayBoard() throws Exception {
 		String output = Board.createBoard().toString();
-		assertEquals("  |   |  \n" + "---------\n" + "  |   |  \n"
-				+ "---------\n" + "  |   |  ", output);
+		assertEquals("  |   |  \n" 
+				   + "---------\n"
+				   + "  |   |  \n"
+				   + "---------\n"
+				   + "  |   |  ", output);
 	}
 
 	@Test
 	public void shouldPlayACrossInTheTopLeft() throws Exception {
 		Board board = Board.createBoard();
-
 		board.playX(0);
 
-		assertEquals("X |   |  \n" + "---------\n" + "  |   |  \n"
-				+ "---------\n" + "  |   |  ", board.toString());
+		assertEquals("X |   |  \n"
+		           + "---------\n"
+				   + "  |   |  \n"
+                   + "---------\n"
+				   + "  |   |  ", board.toString());
 	}
 
 	@Test
 	public void shouldPlayANaughtInTheTopRight() throws Exception {
 		Board board = Board.createBoard();
-
 		board.playO(2);
 
-		assertEquals("  |   | O\n" + "---------\n" + "  |   |  \n"
-				+ "---------\n" + "  |   |  ", board.toString());
+		assertEquals("  |   | O\n" 
+		           + "---------\n" 
+				   + "  |   |  \n"
+				   + "---------\n"
+				   + "  |   |  ", board.toString());
 	}
 
 	@Test
@@ -45,8 +52,11 @@ public class TicTacTest {
 		} catch (Exception e) {
 		}
 		
-		assertEquals("X |   |  \n" + "---------\n" + "  |   |  \n"
-				+ "---------\n" + "  |   |  ", board.toString());
+		assertEquals("X |   |  \n"
+		           + "---------\n" 
+				   + "  |   |  \n"
+				   + "---------\n" 
+				   + "  |   |  ", board.toString());
 	}
 
 	@Test

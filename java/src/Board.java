@@ -14,6 +14,8 @@ public abstract class Board {
 		this.squares = squares;
 	}
 
+	public abstract boolean hasWinner();
+
 	public void playX(Integer index) {
 		play("X", index);
 	}
@@ -21,8 +23,6 @@ public abstract class Board {
 	public void playO(Integer index) {
 		play("O", index);
 	}
-
-	public abstract boolean hasWinner();
 	
 	protected boolean hasWinner(Integer... predicates) {
 		if (!occupied(predicates[0])) return false;
@@ -49,7 +49,10 @@ public abstract class Board {
 	
 	@Override
 	public String toString() {
-		return String.format("%s | %s | %s\n---------\n%s | %s | %s\n---------\n%s | %s | %s", (Object[])squares);
+		return String.format("%s | %s | %s\n" +
+				             "---------\n" +
+				             "%s | %s | %s\n" +
+				             "---------\n" +
+				             "%s | %s | %s", (Object[])squares);
 	}
-
 }

@@ -33,7 +33,7 @@ public class Board {
 
 	private void play(String token, Integer index) {
 		if (occupied(index))
-			throw new IllegalArgumentException();
+			throw new RuntimeException("You cannot play in a square that is already occupied");
 		
 		squares[index] = token;
 	}

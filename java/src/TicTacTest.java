@@ -78,4 +78,16 @@ public class TicTacTest {
 		board.playX(8);
 		assertTrue(board.hasWinner());
 	}
+	
+	@Test(expected=RuntimeException.class)
+	public void shouldNotAllowMovesOutsideTheGrid(){
+		Board board = new Board();
+		board.playX(9);		
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void shouldNotAllowNegativeMoves(){
+		Board board = new Board();
+		board.playX(-1);		
+	}
 }
